@@ -16,7 +16,6 @@ func main() {
 	oc := ollamaclient.NewWithModel(model)
 
 	err := oc.PullIfNeeded(true)
-
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v", err)
 		os.Exit(1)
