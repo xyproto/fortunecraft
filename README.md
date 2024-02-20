@@ -1,6 +1,6 @@
 # fortune9000
 
-Output fortunes by using Ollama and the `tinydolphin` model.
+Output fortunes by using Ollama and the [`tinydolphin`](https://ollama.com/library/tinydolphin) model.
 
 Requires a working Ollama server.
 
