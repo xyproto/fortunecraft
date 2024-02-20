@@ -15,13 +15,18 @@ const (
 func main() {
 	oc := ollamaclient.NewWithModel(model)
 
-	err := oc.PullIfNeeded(true)
-	if err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to pull model: %v", err)
+	if err := oc.PullIfNeeded(true); err != nil {
+		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
 		os.Exit(1)
 	}
 
-	if !oc.Has(model) {
+	found, err := oc.Has2(model)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Could not check for model: %v\n", err)
+		os.Exit(1)
+	}
+
+	if !found {
 		fmt.Fprintf(os.Stderr, "Expected to have the '%s' model downloaded, but it's not present\n", model)
 		os.Exit(1)
 	}
