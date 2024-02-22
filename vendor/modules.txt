@@ -8,6 +8,6 @@ github.com/dustin/go-humanize
 # github.com/xyproto/env/v2 v2.2.5
 ## explicit; go 1.19
 github.com/xyproto/env/v2
-# github.com/xyproto/ollamaclient/v2 v2.0.2
+# github.com/xyproto/ollamaclient/v2 v2.0.3
 ## explicit; go 1.21.3
 github.com/xyproto/ollamaclient/v2
