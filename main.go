@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"os"
 
@@ -8,11 +9,20 @@ import (
 )
 
 const (
-	model  = "tinydolphin"
-	prompt = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux."
+	model         = "tinydolphin"
+	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux."
+	versionString = "fortune9000 v1.1.0"
 )
 
 func main() {
+	versionFlag := flag.Bool("version", false, "Prints the version information")
+	flag.Parse()
+
+	if *versionFlag {
+		fmt.Println(versionString)
+		os.Exit(0)
+	}
+
 	oc := ollamaclient.New()
 	oc.ModelName = model
 
