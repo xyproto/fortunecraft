@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/xyproto/ollamaclient"
+	"github.com/xyproto/ollamaclient/v2"
 )
 
 const (
@@ -13,14 +13,15 @@ const (
 )
 
 func main() {
-	oc := ollamaclient.NewWithModel(model)
+	oc := ollamaclient.New()
+	oc.ModelName = model
 
 	if err := oc.PullIfNeeded(true); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
 		os.Exit(1)
 	}
 
-	found, err := oc.Has2(model)
+	found, err := oc.Has(model)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Could not check for model: %v\n", err)
 		os.Exit(1)
@@ -31,7 +32,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	oc.SetRandomOutput()
+	oc.SetRandom()
 
 	generatedOutput := oc.MustOutput(prompt)
 
