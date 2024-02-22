@@ -11,7 +11,7 @@ import (
 const (
 	model         = "tinydolphin"
 	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux."
-	versionString = "fortune9000 v1.1.0"
+	versionString = "fortune9000 v1.1.1"
 )
 
 func main() {

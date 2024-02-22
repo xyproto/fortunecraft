@@ -38,6 +38,6 @@ Why did the chicken cross the road? Because the answer was 'Option 2', and I wan
 
 ### General info
 
-* Version: 1.1.0
+* Version: 1.1.1
 * License: Apache 2
 * Author: Alexander F. Rødseth
