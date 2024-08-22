@@ -11,8 +11,8 @@ import (
 
 const (
 	model         = "gemma2:2b"
-	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux. Only output the actual fortune."
-	versionString = "fortune9000 v1.1.1"
+	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux. Only output the actual oneliner."
+	versionString = "fortune9000 1.2.0"
 )
 
 func main() {
