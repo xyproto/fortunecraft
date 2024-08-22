@@ -2,7 +2,7 @@ github.com/allegro/bigcache/v3 v3.1.1-0.20240222131551-901589e4644b h1:1+WfnfjMt
 github.com/allegro/bigcache/v3 v3.1.1-0.20240222131551-901589e4644b/go.mod h1:aPyh7jEvrog9zAwx5N7+JUQX5dZTSGpxF1LAR4dr35I=
 github.com/dustin/go-humanize v1.0.1 h1:GzkhY7T5VNhEkwH0PVJgjz+fX1rhBrR7pRT3mDkpeCY=
 github.com/dustin/go-humanize v1.0.1/go.mod h1:Mu1zIs6XwVuF/gI1OepvI0qD18qycQx+mFykh5fBlto=
-github.com/xyproto/env/v2 v2.2.5 h1:FNrp56sptc7ebC2QpM8lqKSGEb3UoYUJZZFl4bmcrPs=
-github.com/xyproto/env/v2 v2.2.5/go.mod h1:F81ZEzu15s3TWUZJ1uzBl9iNeq9zcfHvxMkQJaLZUl0=
-github.com/xyproto/ollamaclient/v2 v2.0.3 h1:bOWclxPE8Nw/mi3bbQHl5JsbMoQGOJ/nYt64kKczr24=
-github.com/xyproto/ollamaclient/v2 v2.0.3/go.mod h1:WGFVADiCf/UXH/Fajx2yVUcyi6sDOU2Exzf8aqG3jio=
+github.com/xyproto/env/v2 v2.5.0 h1:1KXF3UCaELjnXzfZ6iHDCdJoBeQPz4LXG4oHlBN+jvs=
+github.com/xyproto/env/v2 v2.5.0/go.mod h1:F81ZEzu15s3TWUZJ1uzBl9iNeq9zcfHvxMkQJaLZUl0=
+github.com/xyproto/ollamaclient/v2 v2.5.0 h1:m4VKQLOdKmY/FNfo+EkNGEjUaAWxjWNUhXz1fgHvoz0=
+github.com/xyproto/ollamaclient/v2 v2.5.0/go.mod h1:WGFVADiCf/UXH/Fajx2yVUcyi6sDOU2Exzf8aqG3jio=
