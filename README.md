@@ -36,11 +36,17 @@ The cat sat in a sunbeam.
 What's red and bad for your teeth? A brick.
 
 ❯ fortune9000
-Why don't they play poker in the jungle?  Too many cheetahs!
+Why don't they play poker in the jungle? Too many cheetahs!
+
+❯ fortune9000
+I once knew a guy who thought he was a penguin.
+
+❯ fortune9000
+My cat sits on my keyboard and types.
 ```
 
 ### General info
 
-* Version: 1.1.3
+* Version: 1.1.4
 * License: Apache 2
 * Author: Alexander F. Rødseth
