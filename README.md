@@ -33,9 +33,6 @@ Why don't scientists trust atoms? Because they make up everything!
 The cat sat in a sunbeam.
 
 ❯ fortune9000
-Re having trouble getting your cat to wear clothes, try using a hairdryer and setting it to
-
-❯ fortune9000
 What's red and bad for your teeth? A brick.
 
 ❯ fortune9000
