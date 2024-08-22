@@ -1,8 +1,8 @@
 # fortune9000
 
-Output fortunes by using Ollama and the [`tinydolphin`](https://ollama.com/library/tinydolphin) model.
+Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library/gemma2) model.
 
-`fortune9000` has a wider variety and more innovative fortunes than the good old `fortune` program, but the quality is all over the place.
+`fortune9000` has a different selection of fortunes from the good old `fortune` program.
 
 ### Requirements
 
@@ -21,23 +21,29 @@ Then place `~/go/bin` in the `PATH`, or install `~/go/bin/fortune9000` somewhere
 
 ```
 ❯ fortune9000
-When you feel lost, just look up at the stars and remember that you're alive.
+A snail in an elevator is a very fast-moving slowpoke.
 
 ❯ fortune9000
-Why don't you give me your name? Because then I would know what to say!
+To err is human; to forgive, divine.
 
 ❯ fortune9000
-Every day is a new beginning, so don't forget to make one.
+Why don't scientists trust atoms? Because they make up everything!
 
 ❯ fortune9000
-Always be prepared to face the inevitable, as you will never face it alone.
+The cat sat in a sunbeam.
 
 ❯ fortune9000
-Why did the chicken cross the road? Because the answer was 'Option 2', and I wanted to try new things.
+Re having trouble getting your cat to wear clothes, try using a hairdryer and setting it to
+
+❯ fortune9000
+What's red and bad for your teeth? A brick.
+
+❯ fortune9000
+Why don't they play poker in the jungle?  Too many cheetahs!
 ```
 
 ### General info
 
-* Version: 1.1.2
+* Version: 1.1.3
 * License: Apache 2
 * Author: Alexander F. Rødseth
