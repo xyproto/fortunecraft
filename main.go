@@ -9,8 +9,8 @@ import (
 )
 
 const (
-	model         = "tinydolphin"
-	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux."
+	model         = "gemma2:2b"
+	prompt        = "Write a silly saying, quote or joke like it could have been the output of the fortune command on Linux. Only output the actual fortune."
 	versionString = "fortune9000 v1.1.1"
 )
 
@@ -25,6 +25,7 @@ func main() {
 
 	oc := ollamaclient.New()
 	oc.ModelName = model
+	oc.SetRandom()
 
 	if err := oc.PullIfNeeded(true); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
