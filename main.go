@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 
 	"github.com/xyproto/ollamaclient/v2"
 )
@@ -57,5 +58,5 @@ func main() {
 		}
 	}
 
-	fmt.Println(ollamaclient.Massage(generatedOutput))
+	fmt.Println(strings.TrimSpace(strings.TrimSuffix(strings.TrimPrefix(ollamaclient.Massage(generatedOutput), "```"), "```")))
 }
