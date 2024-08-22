@@ -43,10 +43,31 @@ I once knew a guy who thought he was a penguin.
 
 ❯ fortune9000
 My cat sits on my keyboard and types.
+
+❯ fortune9000
+I'm pretty sure it's just running out of RAM.
+
+❯ fortune9000
+Shell shocked and amazed by an accidental catnip-powered reboot.
+
+❯ fortune9000
+Your systemd service is ready to rock and roll.
+
+❯ fortune9000
+The kernel's got too many flags, man.
+
+❯ fortune9000
+50% chance of mild system crashes, 25% chance of cat memes, and 25% chance you forgot what you were doing.
+
+❯ fortune9000
+The path to enlightenment is paved with broken shells and spilled coffee.
+
+❯ fortune9000
+Time to start eating your own cat memes.
 ```
 
 ### General info
 
-* Version: 1.1.4
+* Version: 1.2.0
 * License: Apache 2
 * Author: Alexander F. Rødseth
