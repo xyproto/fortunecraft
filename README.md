@@ -4,6 +4,8 @@ Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library
 
 `fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
 
+One of the goals for this utility is to be a proof of concept for Arch Linux for a package that depends on a model that depends on Ollama.
+
 ### Requirements
 
 Requires an Ollama server to be up and running, and the `gemma2:2b` model to be able to be evaluated, in terms of CPU and memory. Using a GPU is optional.
