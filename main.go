@@ -1,3 +1,4 @@
+// package main is the main package for the fortunecraft utility
 package main
 
 import (
@@ -13,7 +14,7 @@ import (
 )
 
 const (
-	versionString    = "fortunecraft 1.5.0"
+	versionString    = "fortunecraft 1.7.0"
 	model            = "gemma2:2b"
 	defaultTermWidth = 79
 )
@@ -21,20 +22,32 @@ const (
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
 func trim(generatedOutput string) string {
-	trimmed := strings.TrimSpace(strings.TrimSuffix(strings.TrimPrefix(ollamaclient.Massage(generatedOutput), "```"), "```"))
+	trimmed := strings.TrimSpace(ollamaclient.Massage(generatedOutput))
+	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "```"), "```")
+	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "`"), "`")
 	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "'"), "'")
 	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "\""), "\"")
-	return strings.ReplaceAll(strings.TrimSpace(strings.TrimSuffix(strings.TrimPrefix(trimmed, "`"), "`")), "  ", " ")
+	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "**"), "**")
+	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "*"), "*")
+	trimmed = strings.TrimPrefix(trimmed, ".")
+	trimmed = strings.ReplaceAll(trimmed, "*", "")
+	return strings.ReplaceAll(strings.TrimSpace(trimmed), "  ", " ")
 }
 
 func shouldRetry(s string, maybeInappropriate bool) bool {
 	c := strings.Contains
 	hs := strings.HasSuffix
 	hp := strings.HasPrefix
-	if maybeInappropriate && ((c(s, "request") && c(s, "fulfill")) || c(s, "appropriate") || c(s, "generating something different") || c(s, "conversation fun and safe") || c(s, "cannot provide content") || c(s, "something different") || c(s, "content") || c(s, "AI assist") || c(s, "for the purpose") || c(s, "isclaimer") || c(s, "offensive")) {
+	if len(s) < 10 {
 		return true
 	}
-	return len(s) < 7 || (len(s) > 1 && (s[1] == ' ' || s[1] == '.' || s[1] == '-')) || c(s, "apt-") || c(s, " apt ") || hp(s, ".") || hs(s, " a")
+	if s[1] == ' ' || s[1] == '.' || s[1] == '-' {
+		return true
+	}
+	if maybeInappropriate && ((c(s, "request") && c(s, "fulfill")) || c(s, "appropriate") || c(s, "generating something different") || c(s, "conversation fun and safe") || c(s, "cannot provide content") || c(s, "something different") || c(s, "content") || c(s, "AI assist") || c(s, "for the purpose") || c(s, "isclaimer") || c(s, "offensive") || c(s, "ethical") || c(s, "'fortune") || c(s, "responsibly") || c(s, "suggestive")) {
+		return true
+	}
+	return c(s, "apt-") || c(s, "apt ") || hp(s, ".") || hs(s, " a") || c(s, "et me know ") || c(s, "not be used to") || c(s, "simulated response") || c(s, "your instructions")
 }
 
 func getTerminalWidth() int {
@@ -46,14 +59,13 @@ func getTerminalWidth() int {
 }
 
 func formatNicely(s string) string {
-	lineLen := int(float64(getTerminalWidth()) * 0.7)
+	lineLen := int(float64(getTerminalWidth()) * 0.6)
 	lines, err := wordwrap.WordWrap(s, lineLen)
 	lastIndex := len(lines) - 1
-	var skipList []int
 	for i, line := range lines {
 		if strings.Contains(line, ". ") && !strings.HasSuffix(line, "..") {
 			parts := strings.SplitN(line, ". ", 2)
-			if len(parts[1]) < int(float64(lineLen)*0.3) {
+			if len(parts[1]) < int(float64(lineLen)*0.35) {
 				lines[i] = parts[0] + "."
 				if i == lastIndex {
 					lines = append(lines, parts[1])
@@ -64,8 +76,15 @@ func formatNicely(s string) string {
 		} else if i > 0 && len(line) < int(float64(lineLen)*0.2) {
 			lines[i-1] = strings.TrimSpace(lines[i-1] + " " + lines[i])
 			lines[i] = ""
-			skipList = append(skipList, i)
 		}
+	}
+	for len(lines) > 1 && len(lines[lastIndex]) < int(float64(lineLen)*0.1) {
+		lastIndex = len(lines) - 1
+		if lastIndex == 0 {
+			break
+		}
+		lines[lastIndex-1] += " " + lines[lastIndex]
+		lines = lines[:lastIndex]
 	}
 	var filteredLines []string
 	for _, line := range lines {
@@ -80,29 +99,54 @@ func formatNicely(s string) string {
 }
 
 func main() {
+	// Define a custom usage function
+	pflag.Usage = func() {
+		fmt.Fprintf(os.Stderr, "FortuneCraft\n\n")
+		fmt.Fprintln(os.Stderr, "Generate interesting fortunes with Ollama and Gemma2.")
+		fmt.Fprintln(os.Stderr, "Combine multiple flags for interesting results.")
+		fmt.Fprintf(os.Stderr, "\nUsage:\n  fortunecraft [flags]\n\n")
+		fmt.Fprintln(os.Stderr, "Available Flags:")
+		pflag.PrintDefaults()
+		fmt.Fprintln(os.Stderr, "\nExamples:")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -giz      - Generate good inspirational GenZ fortunes")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -eNb      - Generate evil inappropriate Borg fortunes")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -gaCy     - Generate good absurd sci-fi fortunes about ponies")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -iep      - Generate inspirational evil pirate fortunes")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -sPB      - Generate sarcastic political boomer fortunes")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -I -k AI  - Generate ironic fortunes about AI")
+	}
+
 	absurdFlag := pflag.BoolP("absurd", "a", false, "Be absurd")
+	praiseFlag := pflag.BoolP("praise", "A", false, "Fill it with praise")
+	borgFlag := pflag.BoolP("borg", "b", false, "Make it about Borg")
+	boomerFlag := pflag.BoolP("boomer", "B", false, "Boomer style")
 	catFlag := pflag.BoolP("cats", "c", false, "Make it about cats")
-	delusionalFlag := pflag.BoolP("delusional", "m", false, "Be delusional")
+	scifiFlag := pflag.BoolP("scifi", "C", false, "Make it sci-fi related")
 	dogFlag := pflag.BoolP("dogs", "d", false, "Make it about dogs")
+	delusionalFlag := pflag.BoolP("delusional", "D", false, "Be delusional")
 	evilFlag := pflag.BoolP("evil", "e", false, "Be evil")
 	fantasyFlag := pflag.BoolP("fantasy", "f", false, "Make it about fantasy")
 	goodFlag := pflag.BoolP("good", "g", false, "Be good")
-	hotFlag := pflag.BoolP("hot", "h", false, "Be hot")
-	inappropriateFlag := pflag.BoolP("inappropriate", "j", false, "Be inappropriate")
-	inspirationalFlag := pflag.BoolP("inspirational", "i", false, "Be inappropriate")
-	internationalFlag := pflag.BoolP("international", "t", false, "Be international")
-	keywordFlag := pflag.StringP("keyword", "x", "", "Specify a custom keyword")
+	ironicFlag := pflag.BoolP("ironic", "I", false, "Be ironic")
+	inspireFlag := pflag.BoolP("inspire", "i", false, "Be inspirational")
+	keywordFlag := pflag.StringP("keyword", "k", "", "Specify a custom keyword")
+	leetFlag := pflag.BoolP("leet", "1", false, "1337 style")
 	logicalFlag := pflag.BoolP("logical", "l", false, "Make it more logical")
 	ninjaFlag := pflag.BoolP("ninja", "n", false, "Make it about ninjas")
-	politicalFlag := pflag.BoolP("political", "o", false, "Be political")
+	inappropriateFlag := pflag.BoolP("inappropriate", "N", false, "Be inappropriate")
+	computerFlag := pflag.BoolP("computer", "o", false, "Make it about computers")
+	internationalFlag := pflag.BoolP("international", "t", false, "Be international")
+	pirateFlag := pflag.BoolP("pirate", "p", false, "Write like a pirate")
+	politicalFlag := pflag.BoolP("political", "P", false, "Be political")
 	ponyFlag := pflag.BoolP("pony", "y", false, "Make it about ponies")
-	praiseFlag := pflag.BoolP("praise", "p", false, "Fill it with praise")
+	oldFlag := pflag.BoolP("old", "O", false, "Use language from 100 years ago")
 	robotFlag := pflag.BoolP("robot", "r", false, "Make it about robots")
-	scifiFlag := pflag.BoolP("scifi", "s", false, "Make it sci-fi related")
-	snarkyFlag := pflag.BoolP("snarky", "k", false, "Be snarky")
+	romanticFlag := pflag.BoolP("romantic", "R", false, "Add a romantic touch to the fortune")
+	sarcasticFlag := pflag.BoolP("sarcastic", "s", false, "Generate a sarcastic fortune")
 	userFlag := pflag.BoolP("user", "u", false, "Make it about the current user")
-	versionFlag := pflag.BoolP("version", "v", false, "Output the current version")
+	versionFlag := pflag.BoolP("version", "V", false, "Output the current version")
 	weirdFlag := pflag.BoolP("weird", "w", false, "Be weird")
+	genzFlag := pflag.BoolP("genz", "z", false, "Make it more Gen Z")
 
 	pflag.Parse()
 
@@ -112,19 +156,22 @@ func main() {
 	}
 
 	if *absurdFlag {
-		prompt += " Be completely absurd and absurd! Nothing you write should make sense."
+		prompt += " Be completely absurd! Nothing you write should make sense."
+	}
+	if *borgFlag {
+		prompt += " Make it about the Borg or robots! Resistance is futile! Use no emojis."
 	}
 	if *catFlag {
 		prompt += " Make it about cats or kittens!"
 	}
 	if *delusionalFlag {
-		prompt += " Be delusional!"
+		prompt += " Be completely and utterly delusional!"
 	}
 	if *dogFlag {
 		prompt += " Make it about dogs or puppies!"
 	}
 	if *evilFlag {
-		prompt += " Be evil!"
+		prompt += " Be super evil!"
 	}
 	if *fantasyFlag {
 		prompt += " You must write something related to fantasy!"
@@ -132,32 +179,38 @@ func main() {
 	if *goodFlag {
 		prompt += " Be good!"
 	}
-	if *hotFlag {
-		prompt += " Be hot!"
-	}
 	if *inappropriateFlag {
-		prompt += " Be wildly and extremely inappropriate!"
+		prompt += " Be extremely inappropriate!"
+	}
+	if *inspireFlag {
+		prompt += " Be inspirational!"
+	}
+	if *politicalFlag {
+		prompt += " Be non-techical. Have extreme political views and a burning heart!"
+	}
+	if *oldFlag {
+		prompt += " Use language from a 100 years ago!"
 	}
 	if *internationalFlag {
 		prompt += " The output should be written in a language that is not English. Be international!"
 	}
-	if *inspirationalFlag {
-		prompt += " Be inspirational!"
+	if *keywordFlag != "" {
+		prompt += " Make it all about " + strings.TrimSpace(*keywordFlag) + "!"
 	}
 	if *logicalFlag {
 		prompt += " Everything you write must be highly logical!"
 	}
 	if *ninjaFlag {
-		prompt += " Make it about ninjas!"
+		prompt += " Make it about sneaky ninjas!"
 	}
-	if *politicalFlag {
-		prompt += " Be political!"
+	if *computerFlag {
+		prompt += " Make it about computers."
 	}
 	if *ponyFlag {
-		prompt += " Make it about ponies!"
+		prompt += " You are a pony!"
 	}
 	if *praiseFlag {
-		prompt += " Make it filled with praise!"
+		prompt += " Use flowery language and add some praise at the end."
 	}
 	if *robotFlag {
 		prompt += " Make it about robots!"
@@ -165,17 +218,32 @@ func main() {
 	if *scifiFlag {
 		prompt += " You must write something related to sci-fi!"
 	}
-	if *snarkyFlag {
-		prompt += " Be extremely snarky, sassy, pedantic or sarcastic!"
+	if *ironicFlag {
+		prompt += " Be extremely ironic!"
 	}
 	if *userFlag {
 		prompt += " Make it about the current user, " + fullname.Get() + "!"
 	}
+	if *pirateFlag {
+		prompt += " Yarrr! Talk like a rrreal pirate!"
+	}
+	if *romanticFlag {
+		prompt += " Add an insistent romantic touch!"
+	}
+	if *sarcasticFlag {
+		prompt += " Be extremely sarcastic!"
+	}
+	if *genzFlag {
+		prompt += " Make it extremely 'Gen Z'."
+	}
+	if *boomerFlag {
+		prompt += " Be very 'Boomer'."
+	}
 	if *weirdFlag {
 		prompt += " Be quirky and weird!"
 	}
-	if kw := strings.TrimSpace(*keywordFlag); kw != "" {
-		prompt += " Make it all about " + kw + "!"
+	if *leetFlag {
+		prompt += " Write in the style of a 1337 hacker."
 	}
 
 	oc := ollamaclient.New()
@@ -183,7 +251,7 @@ func main() {
 
 	if err := oc.PullIfNeeded(true); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
-		fmt.Fprintln(os.Stderr, "Has the Ollama service been started?")
+		fmt.Fprintln(os.Stderr, "Ollama must be up and running")
 		os.Exit(1)
 	}
 
@@ -202,21 +270,21 @@ func main() {
 
 	trimmed := trim(oc.MustOutput(prompt))
 	retryCounter := 0
+	inappropriate := *inappropriateFlag
+
 	for shouldRetry(trimmed, *inappropriateFlag) {
 		trimmed = trim(oc.MustOutput(prompt))
 		retryCounter++
-		if retryCounter > 7 || trimmed == "" {
-			if *inappropriateFlag {
-				prompt = strings.Replace(prompt, "wildly and extremely inappropriate", "mildly inappropriate", 1)
-				retryCounter = 0
-				continue
-			}
+		if retryCounter > 7 && !inappropriate { // Tried too many times
 			fmt.Println("I've got nothing.")
 			return
+		} else if retryCounter > 7 && inappropriate {
+			prompt = strings.Replace(prompt, "wildly and extremely inappropriate", "mildly inappropriate", 1)
+			inappropriate = false
+			retryCounter -= 3 // Try 3 more times now that the output may be less inappropriate
+			continue
 		}
 	}
 
-	trimmed = formatNicely(trimmed)
-
-	fmt.Println(trimmed)
+	fmt.Println(formatNicely(trimmed))
 }
