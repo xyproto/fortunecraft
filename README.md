@@ -68,6 +68,6 @@ Time to start eating your own cat memes.
 
 ### General info
 
-* Version: 1.3.0
+* Version: 1.3.1
 * License: Apache 2
 * Author: Alexander F. Rødseth
