@@ -4,7 +4,7 @@ Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library
 
 `fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
 
-One of the goals for this utility is to be a proof of concept for Arch Linux for a package that depends on a model that depends on Ollama.
+One of the goals for this utility is to be a proof of concept for an Arch Linux package that depends on a model that in turn depends on Ollama.
 
 ### Requirements
 
