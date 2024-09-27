@@ -2,13 +2,12 @@
 
 Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library/gemma2) model.
 
-`fortuna` has a different selection of fortunes from the good old `fortune` program.
+`fortuna` has a very different selection of fortunes compared to the good old `fortune` program.
 
 ### Requirements
 
-Requires a working Ollama server.
+Requires an Ollama server to be up and running, and the `gemma2:2b` model to be able to be evaluated, in terms of CPU and memory. Using a GPU is optional.
 
-* The `NO_COLOR` environment variable is respected.
 * `OLLAMA_HOST` can be used to set a different host address than `localhost:11434` for the Ollama server.
 
 ### Installation
@@ -66,8 +65,32 @@ The path to enlightenment is paved with broken shells and spilled coffee.
 Time to start eating your own cat memes.
 ```
 
+### Flags
+
+```
+Usage of ./fortuna:
+-a, --absurd          Be absurd
+-c, --cats            Make it about cats
+-d, --dogs            Make it about dogs
+-e, --evil            Be evil
+-y, --fantasy         Make it about fantasy
+-g, --good            Be good
+-h, --hot             Be hot
+-i, --international   Be international
+-l, --logical         Make it more logical
+-n, --ninja           Make it about ninjas
+-o, --political       Be political
+-p, --pony            Make it about ponies
+-r, --robot           Make it about robots
+-f, --scifi           Make it sci-fi related
+-s, --snarky          Be snarky
+-u, --user            Make it about the current user
+-v, --version         Output the current version
+-w, --weird           Be weird
+```
+
 ### General info
 
-* Version: 1.3.1
+* Version: 1.4.0
 * License: Apache 2
-* Author: Alexander F. Rødseth
+* Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
