@@ -1,6 +1,6 @@
-module github.com/xyproto/fortune9000
+module github.com/xyproto/fortuna
 
-go 1.22.0
+go 1.23.1
 
 require github.com/xyproto/ollamaclient/v2 v2.5.0
 
