@@ -1,8 +1,8 @@
-# Fortuna
+# FortuneCraft
 
 Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library/gemma2) model.
 
-`fortuna` has a very different selection of fortunes compared to the good old `fortune` program.
+`fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
 
 ### Requirements
 
@@ -12,85 +12,90 @@ Requires an Ollama server to be up and running, and the `gemma2:2b` model to be 
 
 ### Installation
 
-    go install github.com/xyproto/fortuna@latest
+    go install github.com/xyproto/fortunecraft@latest
 
-Then place `~/go/bin` in the `PATH`, or install `~/go/bin/fortuna` somewhere else, if you want.
+Then place `~/go/bin` in the `PATH`, or install `~/go/bin/fortunecraft` somewhere else, if you want.
 
 ### Example output
 
 ```
-❯ fortuna
+❯ fortunecraft
 A snail in an elevator is a very fast-moving slowpoke.
 
-❯ fortuna
+❯ fortunecraft
 To err is human; to forgive, divine.
 
-❯ fortuna
+❯ fortunecraft
 Why don't scientists trust atoms? Because they make up everything!
 
-❯ fortuna
+❯ fortunecraft
 The cat sat in a sunbeam.
 
-❯ fortuna
+❯ fortunecraft
 What's red and bad for your teeth? A brick.
 
-❯ fortuna
+❯ fortunecraft
 Why don't they play poker in the jungle? Too many cheetahs!
 
-❯ fortuna
+❯ fortunecraft
 I once knew a guy who thought he was a penguin.
 
-❯ fortuna
+❯ fortunecraft
 My cat sits on my keyboard and types.
 
-❯ fortuna
+❯ fortunecraft
 I'm pretty sure it's just running out of RAM.
 
-❯ fortuna
+❯ fortunecraft
 Shell shocked and amazed by an accidental catnip-powered reboot.
 
-❯ fortuna
+❯ fortunecraft
 Your systemd service is ready to rock and roll.
 
-❯ fortuna
+❯ fortunecraft
 The kernel's got too many flags, man.
 
-❯ fortuna
+❯ fortunecraft
 50% chance of mild system crashes, 25% chance of cat memes, and 25% chance you forgot what you were doing.
 
-❯ fortuna
+❯ fortunecraft
 The path to enlightenment is paved with broken shells and spilled coffee.
 
-❯ fortuna
+❯ fortunecraft
 Time to start eating your own cat memes.
 ```
 
 ### Flags
 
 ```
-Usage of ./fortuna:
--a, --absurd          Be absurd
--c, --cats            Make it about cats
--d, --dogs            Make it about dogs
--e, --evil            Be evil
--y, --fantasy         Make it about fantasy
--g, --good            Be good
--h, --hot             Be hot
--i, --international   Be international
--l, --logical         Make it more logical
--n, --ninja           Make it about ninjas
--o, --political       Be political
--p, --pony            Make it about ponies
--r, --robot           Make it about robots
--f, --scifi           Make it sci-fi related
--s, --snarky          Be snarky
--u, --user            Make it about the current user
--v, --version         Output the current version
--w, --weird           Be weird
+Usage of ./fortunecraft:
+-a, --absurd           Be absurd
+-c, --cats             Make it about cats
+-m, --delusional       Be delusional
+-d, --dogs             Make it about dogs
+-e, --evil             Be evil
+-f, --fantasy          Make it about fantasy
+-g, --good             Be good
+-h, --hot              Be hot
+-j, --inappropriate    Be inappropriate
+-i, --inspirational    Be inappropriate
+-t, --international    Be international
+-x, --keyword string   Specify a custom keyword
+-l, --logical          Make it more logical
+-n, --ninja            Make it about ninjas
+-o, --political        Be political
+-y, --pony             Make it about ponies
+-p, --praise           Fill it with praise
+-r, --robot            Make it about robots
+-s, --scifi            Make it sci-fi related
+-k, --snarky           Be snarky
+-u, --user             Make it about the current user
+-v, --version          Output the current version
+-w, --weird            Be weird
 ```
 
 ### General info
 
-* Version: 1.4.0
+* Version: 1.5.0
 * License: Apache 2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
