@@ -68,30 +68,46 @@ Time to start eating your own cat memes.
 ### Flags
 
 ```
-Usage of ./fortunecraft:
+Available Flags:
 -a, --absurd           Be absurd
+-B, --boomer           Boomer style
+-b, --borg             Make it about Borg
 -c, --cats             Make it about cats
--m, --delusional       Be delusional
+-o, --computer         Make it about computers
+-D, --delusional       Be delusional
 -d, --dogs             Make it about dogs
 -e, --evil             Be evil
 -f, --fantasy          Make it about fantasy
+-z, --genz             Make it more Gen Z
 -g, --good             Be good
--h, --hot              Be hot
--j, --inappropriate    Be inappropriate
--i, --inspirational    Be inappropriate
+-N, --inappropriate    Be inappropriate
+-i, --inspire          Be inspirational
 -t, --international    Be international
--x, --keyword string   Specify a custom keyword
+-I, --ironic           Be ironic
+-k, --keyword string   Specify a custom keyword
+-1, --leet             1337 style
 -l, --logical          Make it more logical
 -n, --ninja            Make it about ninjas
--o, --political        Be political
+-O, --old              Use language from 100 years ago
+-p, --pirate           Write like a pirate
+-P, --political        Be political
 -y, --pony             Make it about ponies
--p, --praise           Fill it with praise
+-A, --praise           Fill it with praise
 -r, --robot            Make it about robots
--s, --scifi            Make it sci-fi related
--k, --snarky           Be snarky
+-R, --romantic         Add a romantic touch to the fortune
+-s, --sarcastic        Generate a sarcastic fortune
+-C, --scifi            Make it sci-fi related
 -u, --user             Make it about the current user
--v, --version          Output the current version
+-V, --version          Output the current version
 -w, --weird            Be weird
+
+Examples:
+fortunecraft -giz      - Generate good inspirational GenZ fortunes
+fortunecraft -eNb      - Generate evil inappropriate Borg fortunes
+fortunecraft -gaCy     - Generate good absurd sci-fi fortunes about ponies
+fortunecraft -iep      - Generate inspirational evil pirate fortunes
+fortunecraft -sPB      - Generate sarcastic political boomer fortunes
+fortunecraft -I -k AI  - Generate ironic fortunes about AI
 ```
 
 ### General info
