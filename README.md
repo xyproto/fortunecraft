@@ -96,6 +96,6 @@ Usage of ./fortunecraft:
 
 ### General info
 
-* Version: 1.5.0
+* Version: 1.7.0
 * License: Apache 2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
