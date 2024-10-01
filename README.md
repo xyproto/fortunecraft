@@ -21,50 +21,17 @@ Then place `~/go/bin` in the `PATH`, or install `~/go/bin/fortunecraft` somewher
 ### Example output
 
 ```
-❯ fortunecraft
-A snail in an elevator is a very fast-moving slowpoke.
+./fortunecraft
+The best way to predict the future is to invent it.
 
-❯ fortunecraft
-To err is human; to forgive, divine.
+❯ ./fortunecraft
+The future is a tapestry woven with threads of chance and choice.
 
-❯ fortunecraft
-Why don't scientists trust atoms? Because they make up everything!
+❯ fortunecraft -giz
+Yeet your fears to the wind 🌬️🚀 You're boutta slay.
 
-❯ fortunecraft
-The cat sat in a sunbeam.
-
-❯ fortunecraft
-What's red and bad for your teeth? A brick.
-
-❯ fortunecraft
-Why don't they play poker in the jungle? Too many cheetahs!
-
-❯ fortunecraft
-I once knew a guy who thought he was a penguin.
-
-❯ fortunecraft
-My cat sits on my keyboard and types.
-
-❯ fortunecraft
-I'm pretty sure it's just running out of RAM.
-
-❯ fortunecraft
-Shell shocked and amazed by an accidental catnip-powered reboot.
-
-❯ fortunecraft
-Your systemd service is ready to rock and roll.
-
-❯ fortunecraft
-The kernel's got too many flags, man.
-
-❯ fortunecraft
-50% chance of mild system crashes, 25% chance of cat memes, and 25% chance you forgot what you were doing.
-
-❯ fortunecraft
-The path to enlightenment is paved with broken shells and spilled coffee.
-
-❯ fortunecraft
-Time to start eating your own cat memes.
+❯ ./fortunecraft -eNb
+Resistance is futile!
 ```
 
 ### Flags
@@ -114,6 +81,6 @@ fortunecraft -I -k AI  - Generate ironic fortunes about AI
 
 ### General info
 
-* Version: 1.7.0
+* Version: 1.7.1
 * License: Apache 2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
