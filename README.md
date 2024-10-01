@@ -1,6 +1,6 @@
 # FortuneCraft
 
-Output fortunes by using Ollama and the model selected with [`llm-manager`](https://github.com/xyproto/llm-manager).
+Output fortunes by using Ollama and the text generation model selected with [`llm-manager`](https://github.com/xyproto/llm-manager).
 
 `fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
 
