@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	versionString = "FortuneCraft 1.7.0"
+	versionString = "FortuneCraft 1.7.1"
 	model         = "gemma2:2b"
 )
 
