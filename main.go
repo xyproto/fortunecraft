@@ -14,14 +14,24 @@ import (
 )
 
 const (
-	versionString    = "fortunecraft 1.7.0"
-	model            = "gemma2:2b"
-	defaultTermWidth = 79
+	versionString = "FortuneCraft 1.7.0"
+	model         = "gemma2:2b"
 )
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
+// getTerminalWidth tries to find the current width of the terminal, with a fallback on 79
+func getTerminalWidth() int {
+	width, _, err := term.GetSize(int(os.Stdout.Fd()))
+	if err != nil {
+		return 79 // fallback
+	}
+	return width
+}
+
+// trim tries to remove quotes, stars and spaces that are not needed
 func trim(generatedOutput string) string {
+	// TODO: Use one large regex?
 	trimmed := strings.TrimSpace(ollamaclient.Massage(generatedOutput))
 	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "```"), "```")
 	trimmed = strings.TrimSuffix(strings.TrimPrefix(trimmed, "`"), "`")
@@ -34,14 +44,13 @@ func trim(generatedOutput string) string {
 	return strings.ReplaceAll(strings.TrimSpace(trimmed), "  ", " ")
 }
 
+// shouldRetry tries to detect if the LLM is refusing to fullfill the request, especially if the request may be inappropriate
+// It also returns true if the given string is less than 10 runes long.
 func shouldRetry(s string, maybeInappropriate bool) bool {
 	c := strings.Contains
 	hs := strings.HasSuffix
 	hp := strings.HasPrefix
-	if len(s) < 10 {
-		return true
-	}
-	if s[1] == ' ' || s[1] == '.' || s[1] == '-' {
+	if len([]rune(s)) < 10 || s[1] == ' ' || s[1] == '.' || s[1] == '-' {
 		return true
 	}
 	if maybeInappropriate && ((c(s, "request") && c(s, "fulfill")) || c(s, "appropriate") || c(s, "generating something different") || c(s, "conversation fun and safe") || c(s, "cannot provide content") || c(s, "something different") || c(s, "content") || c(s, "AI assist") || c(s, "for the purpose") || c(s, "isclaimer") || c(s, "offensive") || c(s, "ethical") || c(s, "'fortune") || c(s, "responsibly") || c(s, "suggestive")) {
@@ -50,18 +59,15 @@ func shouldRetry(s string, maybeInappropriate bool) bool {
 	return c(s, "apt-") || c(s, "apt ") || hp(s, ".") || hs(s, " a") || c(s, "et me know ") || c(s, "not be used to") || c(s, "simulated response") || c(s, "your instructions") || c(s, "interpreted as a statement")
 }
 
-func getTerminalWidth() int {
-	width, _, err := term.GetSize(int(os.Stdout.Fd()))
-	if err != nil {
-		return defaultTermWidth
-	}
-	return width
-}
-
+// formatNicely tries to wrap the given string at the right places so that it looks good.
+// This has been specially crafted for short fortunes that are often 1 or two sentences.
 func formatNicely(s string) string {
-	lineLen := int(float64(getTerminalWidth()) * 0.6)
-	lines, err := wordwrap.WordWrap(s, lineLen)
-	lastIndex := len(lines) - 1
+	var (
+		lineLen       = int(float64(getTerminalWidth()) * 0.6)
+		lines, err    = wordwrap.WordWrap(s, lineLen)
+		lastIndex     = len(lines) - 1
+		filteredLines []string
+	)
 	for i, line := range lines {
 		if strings.Contains(line, ". ") && !strings.HasSuffix(line, "..") {
 			parts := strings.SplitN(line, ". ", 2)
@@ -88,7 +94,6 @@ func formatNicely(s string) string {
 		lines = lines[:lastIndex]
 		lastIndex = len(lines) - 1
 	}
-	var filteredLines []string
 	for _, line := range lines {
 		if line != "" {
 			filteredLines = append(filteredLines, line)
@@ -101,9 +106,8 @@ func formatNicely(s string) string {
 }
 
 func main() {
-	// Define a custom usage function
 	pflag.Usage = func() {
-		fmt.Fprintf(os.Stderr, "FortuneCraft\n\n")
+		fmt.Fprintf(os.Stderr, "%s\n\n", versionString)
 		fmt.Fprintln(os.Stderr, "Generate interesting fortunes with Ollama and Gemma2.")
 		fmt.Fprintln(os.Stderr, "Combine multiple flags for interesting results.")
 		fmt.Fprintf(os.Stderr, "\nUsage:\n  fortunecraft [flags]\n\n")
