@@ -78,6 +78,7 @@ func formatNicely(s string) string {
 			lines[i] = ""
 		}
 	}
+	lastIndex = len(lines) - 1
 	for len(lines) > 1 && len(lines[lastIndex]) < int(float64(lineLen)*0.1) {
 		lastIndex = len(lines) - 1
 		if lastIndex == 0 {
@@ -85,6 +86,7 @@ func formatNicely(s string) string {
 		}
 		lines[lastIndex-1] += " " + lines[lastIndex]
 		lines = lines[:lastIndex]
+		lastIndex = len(lines) - 1
 	}
 	var filteredLines []string
 	for _, line := range lines {
