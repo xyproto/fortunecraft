@@ -9,14 +9,12 @@ import (
 	"github.com/spf13/pflag"
 	"github.com/xyproto/fullname"
 	"github.com/xyproto/ollamaclient/v2"
+	"github.com/xyproto/usermodel"
 	"github.com/xyproto/wordwrap"
 	"golang.org/x/term"
 )
 
-const (
-	versionString = "FortuneCraft 1.7.1"
-	model         = "gemma2:2b"
-)
+const versionString = "FortuneCraft 1.8.0"
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
@@ -253,7 +251,7 @@ func main() {
 	}
 
 	oc := ollamaclient.New()
-	oc.ModelName = model
+	oc.ModelName = usermodel.GetTextGenerationModel()
 
 	if err := oc.PullIfNeeded(true); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
@@ -261,14 +259,14 @@ func main() {
 		os.Exit(1)
 	}
 
-	found, err := oc.Has(model)
+	found, err := oc.Has(oc.ModelName)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "Could not check for model: %v\n", err)
 		os.Exit(1)
 	}
 
 	if !found {
-		fmt.Fprintf(os.Stderr, "Expected to have the '%s' model downloaded, but it's not present\n", model)
+		fmt.Fprintf(os.Stderr, "Expected to have the '%s' model downloaded, but it's not present\n", oc.ModelName)
 		os.Exit(1)
 	}
 

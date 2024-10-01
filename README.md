@@ -1,6 +1,6 @@
 # FortuneCraft
 
-Output fortunes by using Ollama and the [`gemma2:2b`](https://ollama.com/library/gemma2) model.
+Output fortunes by using Ollama and the model selected with [`llm-manager`](https://github.com/xyproto/llm-manager).
 
 `fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
 
@@ -8,7 +8,7 @@ One of the goals for this utility is to be a proof of concept for an Arch Linux 
 
 ### Requirements
 
-Requires an Ollama server to be up and running, and the `gemma2:2b` model to be able to be evaluated, in terms of CPU and memory. Using a GPU is optional.
+Requires an Ollama server to be up and running, and the selected model to be able to run / be evaluated, in terms of CPU and memory. Using a GPU is optional.
 
 * `OLLAMA_HOST` can be used to set a different host address than `localhost:11434` for the Ollama server.
 
@@ -81,6 +81,6 @@ fortunecraft -I -k AI  - Generate ironic fortunes about AI
 
 ### General info
 
-* Version: 1.7.1
+* Version: 1.8.0
 * License: Apache 2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
