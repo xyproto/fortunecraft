@@ -5,8 +5,8 @@ go 1.23.1
 require (
 	github.com/spf13/pflag v1.0.5
 	github.com/xyproto/fullname v1.1.0
-	github.com/xyproto/ollamaclient/v2 v2.5.0
-	github.com/xyproto/usermodel v1.0.0
+	github.com/xyproto/ollamaclient/v2 v2.5.2
+	github.com/xyproto/usermodel v1.1.0
 	github.com/xyproto/wordwrap v1.0.1
 	golang.org/x/term v0.24.0
 )

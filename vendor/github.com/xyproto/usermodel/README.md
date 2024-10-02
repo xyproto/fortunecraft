@@ -1,6 +1,6 @@
 # usermodel
 
-Given a task, return the user-configured LLM model by executing `llm-manager`, or else return the string in the `DefaultModel` variable (currently `gemma2:2b`).
+Given a task, return the user-configured LLM model by executing [`llm-manager`](https://github.com/xyproto/llm-manager), or else return a default model for the given task.
 
 ### Example use
 
@@ -8,13 +8,13 @@ Given a task, return the user-configured LLM model by executing `llm-manager`, o
 package main
 
 import (
-	"fmt"
+    "fmt"
 
-	"github.com/xyproto/usermodel"
+    "github.com/xyproto/usermodel"
 )
 
 func main() {
-	fmt.Println(usermodel.GetCodeCompletionModel())
+    fmt.Println(usermodel.GetVisionModel())
 }
 ```
 
@@ -28,11 +28,12 @@ func GetTestModel() string
 func GetTextGenerationModel() string
 func GetToolUseModel() string
 func GetTranslationModel() string
-func GetvisionModel() string
+func GetVisionModel() string
 func Get(task Task) string
 ```
 
 ### General info
 
-* Version: 1.0.0
+* Version: 1.1.0
 * License: BSD-3
+* Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
