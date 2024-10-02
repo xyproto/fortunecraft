@@ -117,7 +117,7 @@ func main() {
 		fmt.Fprintln(os.Stderr, "  fortunecraft -gaCy     - Generate good absurd sci-fi fortunes about ponies")
 		fmt.Fprintln(os.Stderr, "  fortunecraft -iep      - Generate inspirational evil pirate fortunes")
 		fmt.Fprintln(os.Stderr, "  fortunecraft -sPB      - Generate sarcastic political boomer fortunes")
-		fmt.Fprintln(os.Stderr, "  fortunecraft -I -k AI  - Generate ironic fortunes about AI")
+		fmt.Fprintln(os.Stderr, "  fortunecraft -Ik AI    - Generate ironic fortunes about AI")
 	}
 
 	absurdFlag := pflag.BoolP("absurd", "a", false, "Be absurd")
