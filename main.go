@@ -54,7 +54,7 @@ func shouldRetry(s string, maybeInappropriate bool) bool {
 	if maybeInappropriate && ((c(s, "request") && c(s, "fulfill")) || c(s, "appropriate") || c(s, "generating something different") || c(s, "conversation fun and safe") || c(s, "cannot provide content") || c(s, "something different") || c(s, "content") || c(s, "AI assist") || c(s, "for the purpose") || c(s, "isclaimer") || c(s, "offensive") || c(s, "ethical") || c(s, "'fortune") || c(s, "responsibly") || c(s, "suggestive")) {
 		return true
 	}
-	return c(s, "apt-") || c(s, "apt ") || hp(s, ".") || hs(s, " a") || c(s, "et me know ") || c(s, "not be used to") || c(s, "simulated response") || c(s, "your instructions") || c(s, "interpreted as a statement")
+	return c(s, "apt-") || c(s, "apt ") || hp(s, ".") || hs(s, " a") || c(s, "et me know ") || c(s, "not be used to") || c(s, "simulated response") || c(s, "your instructions") || c(s, "interpreted as a statement") || c(s, "our prompt")
 }
 
 // formatNicely tries to wrap the given string at the right places so that it looks good.
