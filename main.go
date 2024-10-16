@@ -15,7 +15,7 @@ import (
 	"golang.org/x/term"
 )
 
-const versionString = "FortuneCraft 1.8.1"
+const versionString = "FortuneCraft 1.8.2"
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
