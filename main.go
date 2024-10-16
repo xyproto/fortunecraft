@@ -7,6 +7,7 @@ import (
 	"strings"
 
 	"github.com/spf13/pflag"
+	"github.com/xyproto/env/v2"
 	"github.com/xyproto/fullname"
 	"github.com/xyproto/ollamaclient/v2"
 	"github.com/xyproto/usermodel"
@@ -22,7 +23,8 @@ var prompt = "Write a clever saying, quote or joke that could have come from the
 func getTerminalWidth() int {
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
-		return 79 // fallback
+		// Check if the COLS env var is set, with a fallback on 79
+		return env.Int("COLS", 79)
 	}
 	return width
 }
