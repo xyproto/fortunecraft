@@ -19,12 +19,12 @@ const versionString = "FortuneCraft 1.8.2"
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
-// getTerminalWidth tries to find the current width of the terminal, with a fallback on 79
+// getTerminalWidth tries to find the current width of the terminal, with a fallback on 120
 func getTerminalWidth() int {
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
 	if err != nil {
-		// Check if the COLS env var is set, with a fallback on 79
-		return env.Int("COLS", 79)
+		// Check if the COLS env var is set
+		return env.Int("COLS", 120)
 	}
 	return width
 }
