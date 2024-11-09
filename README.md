@@ -81,6 +81,6 @@ fortunecraft -I -k AI  - Generate ironic fortunes about AI
 
 ### General info
 
-* Version: 1.8.2
+* Version: 1.8.3
 * License: Apache 2
 * Author: Alexander F. Rødseth &lt;xyproto@archlinux.org&gt;
