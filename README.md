@@ -1,10 +1,10 @@
 # FortuneCraft
 
-Output fortunes by using Ollama and the text generation model selected in `/etc/llm.conf` (or in `~/.config/llm-manager/llm.conf`. [`llm-manager`](https://github.com/xyproto/llm-manager) can be used to set and query models per intended use).
+Output fortunes by using Ollama and a user-defined text generation model / LLM.
 
-`fortunecraft` has a very different selection of fortunes compared to the good old `fortune` program.
+`fortunecraft` has a much wider and more configurable selection of fortunes compared to the good old `fortune` program.
 
-One of the goals for this utility is to be a proof of concept for an Arch Linux package that depends on a model that in turn depends on Ollama.
+One of the goals for this utility is to be one of the first Arch Linux packages that depends on Ollama, to open up this opportunity for other packages and applications too.
 
 ### Requirements
 
@@ -17,6 +17,8 @@ Requires an Ollama server to be up and running, and the selected model to be abl
     go install github.com/xyproto/fortunecraft@latest
 
 Then place `~/go/bin` in the `PATH`, or install `~/go/bin/fortunecraft` somewhere else, if you want.
+
+* If you want to use a different model than the default one, install [`llm-manager`](https://github.com/xyproto/llm-manager) and select a model for the text generation task (can also be configured by editing `~/.config/llm-manager/llm.conf` or `/etc/llm.conf`).
 
 ### Example output
 
