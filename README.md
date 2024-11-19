@@ -1,6 +1,6 @@
 # FortuneCraft
 
-Output fortunes by using Ollama and a user-defined text generation model / LLM.
+Output fortunes by using Ollama and a user-defined text generation model.
 
 `fortunecraft` has a much wider and more configurable selection of fortunes compared to the good old `fortune` program.
 
