@@ -4,7 +4,7 @@ Output fortunes by using Ollama and a user-defined text generation model / LLM.
 
 `fortunecraft` has a much wider and more configurable selection of fortunes compared to the good old `fortune` program.
 
-One of the goals for this utility is to be one of the first Arch Linux packages that depends on Ollama, to open up this opportunity for other packages and applications too.
+One of the goals for this utility is to be one of the first Arch Linux packages that depends on Ollama, to open up this path for other packages and applications too.
 
 ### Requirements
 
