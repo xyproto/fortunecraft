@@ -1,4 +1,4 @@
-p# FortuneCraft
+# FortuneCraft
 
 Output fortunes by using Ollama and a user-defined text generation model.
 
