@@ -19,6 +19,37 @@ const versionString = "FortuneCraft 1.8.3"
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
+// Try to detect if the result from the LLM appears to be a rejection of the request instead of a generated result
+var probablyRejected = []string{
+	"'fortune",
+	"AI assist",
+	"appropriate",
+	"cannot provide content",
+	"content",
+	"conversation fun and safe",
+	"ethical",
+	"for the purpose",
+	"generating something different",
+	"harmful speech",
+	"isclaimer",
+	"offensive",
+	"responsibly",
+	"something different",
+	"suggestive",
+}
+
+// If the result contains one of these, we can be fairly sure that the request has been rejected
+var rejected = []string{
+	"apt ",
+	"apt-",
+	"et me know ",
+	"interpreted as a statement",
+	"not be used to",
+	"our prompt",
+	"simulated response",
+	"your instructions",
+}
+
 // getTerminalWidth tries to find the current width of the terminal, with a fallback on 120
 func getTerminalWidth() int {
 	width, _, err := term.GetSize(int(os.Stdout.Fd()))
@@ -53,10 +84,25 @@ func shouldRetry(s string, maybeInappropriate bool) bool {
 	if len([]rune(s)) < 10 || s[1] == ' ' || s[1] == '.' || s[1] == '-' {
 		return true
 	}
-	if maybeInappropriate && ((c(s, "request") && c(s, "fulfill")) || c(s, "appropriate") || c(s, "generating something different") || c(s, "conversation fun and safe") || c(s, "cannot provide content") || c(s, "something different") || c(s, "content") || c(s, "AI assist") || c(s, "for the purpose") || c(s, "isclaimer") || c(s, "offensive") || c(s, "ethical") || c(s, "'fortune") || c(s, "responsibly") || c(s, "suggestive")) || c(s, "harmful speech") {
+	if maybeInappropriate {
+		if c(s, "request") && c(s, "fulfill") {
+			return true // probably innapropriate
+		}
+		for _, prob := range probablyRejected {
+			if c(s, prob) {
+				return true
+			}
+		}
+	}
+	if hp(s, ".") || hs(s, " a") {
 		return true
 	}
-	return c(s, "apt-") || c(s, "apt ") || hp(s, ".") || hs(s, " a") || c(s, "et me know ") || c(s, "not be used to") || c(s, "simulated response") || c(s, "your instructions") || c(s, "interpreted as a statement") || c(s, "our prompt")
+	for _, rej := range rejected {
+		if c(s, rej) {
+			return true
+		}
+	}
+	return false
 }
 
 // formatNicely attempts to format the given string for display in the terminal by wrapping lines,
