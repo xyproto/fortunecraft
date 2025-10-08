@@ -6,6 +6,10 @@ Output fortunes by using Ollama and a user-defined text generation model.
 
 One of the goals for this utility is to be one of the first Arch Linux packages that depends on Ollama and `ollama-environment`, to help open up this path for other packages and applications.
 
+### Screenshot
+
+<img width="1018" height="286" alt="image" src="https://github.com/user-attachments/assets/374a9906-1ea5-46d7-b12d-09d90e124ee7" />
+
 ### Requirements
 
 Requires an Ollama server to be up and running, and the selected model to be able to run / be evaluated, in terms of CPU and memory. Using a GPU is optional.
