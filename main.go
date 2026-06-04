@@ -305,7 +305,8 @@ func main() {
 	}
 
 	oc := ollamaclient.New()
-	oc.ModelName = usermodel.GetTextGenerationModel()
+	// Respect OLLAMA_MODEL if set, otherwise fall back to the usermodel default
+	oc.ModelName = env.Str("OLLAMA_MODEL", usermodel.GetTextGenerationModel())
 
 	if err := oc.PullIfNeeded(true); err != nil {
 		fmt.Fprintf(os.Stderr, "Failed to pull model: %v\n", err)
