@@ -8,7 +8,7 @@ require (
 	github.com/xyproto/fullname v1.1.0
 	github.com/xyproto/ollamaclient/v2 v2.8.1
 	github.com/xyproto/usermodel v1.3.0
-	github.com/xyproto/wordwrap v1.1.0
+	github.com/xyproto/wordwrap v1.2.0
 	golang.org/x/term v0.43.0
 )
 
