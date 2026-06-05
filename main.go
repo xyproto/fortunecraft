@@ -107,54 +107,20 @@ func shouldRetry(s string, maybeInappropriate bool) bool {
 	return false
 }
 
-// formatNicely attempts to format the given string for display in the terminal by wrapping lines,
-// merging very short lines with their predecessors, and splitting sentences more naturally.
+// formatNicely wraps the generated fortune for terminal display using the
+// poetic line-breaking algorithm from the wordwrap package, which prefers
+// natural punctuation boundaries over arbitrary word boundaries.
 func formatNicely(s string) string {
 	terminalWidth := getTerminalWidth()
 	if terminalWidth <= 0 {
 		return strings.TrimSpace(strings.TrimPrefix(s, "."))
 	}
-	lineLen := int(float64(terminalWidth) * 0.6)
-	lines, err := wordwrap.WordWrap(strings.ReplaceAll(s, "  ", " "), lineLen)
+	maxWidth := int(float64(terminalWidth) * 0.90)
+	lines, err := wordwrap.PoeticWrap(strings.ReplaceAll(s, "  ", " "), maxWidth, 0)
 	if err != nil || len(lines) == 0 {
 		return strings.TrimSpace(strings.TrimPrefix(s, "."))
 	}
-	lastIndex := len(lines) - 1
-	for i, line := range lines {
-		if strings.Contains(line, ". ") && !strings.HasSuffix(line, "..") {
-			parts := strings.SplitN(line, ". ", 2)
-			if len(parts) == 2 && len(parts[1]) < int(float64(lineLen)*0.35) {
-				lines[i] = parts[0] + "."
-				if i == lastIndex {
-					lines = append(lines, parts[1])
-				} else if i+1 < len(lines) {
-					lines[i+1] = strings.TrimSpace(parts[1] + " " + lines[i+1])
-				} else {
-					lines = append(lines, parts[1])
-				}
-			}
-		} else if i > 0 && len(line) < int(float64(lineLen)*0.2) {
-			lines[i-1] = strings.TrimSpace(lines[i-1] + " " + lines[i])
-			lines[i] = ""
-		}
-	}
-	for len(lines) > 1 && len(lines[len(lines)-1]) < int(float64(lineLen)*0.1) {
-		if len(lines) == 1 {
-			break
-		}
-		lines[len(lines)-2] = lines[len(lines)-2] + " " + lines[len(lines)-1]
-		lines = lines[:len(lines)-1]
-	}
-	var filtered []string
-	for _, l := range lines {
-		if strings.TrimSpace(l) != "" {
-			filtered = append(filtered, l)
-		}
-	}
-	if err == nil {
-		s = strings.TrimSpace(strings.Join(filtered, "\n"))
-	}
-	return strings.TrimSpace(strings.TrimPrefix(s, "."))
+	return strings.TrimSpace(strings.TrimPrefix(strings.Join(lines, "\n"), "."))
 }
 
 func main() {
