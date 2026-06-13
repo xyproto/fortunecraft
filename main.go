@@ -15,7 +15,7 @@ import (
 	"golang.org/x/term"
 )
 
-const versionString = "FortuneCraft 1.8.6"
+const versionString = "FortuneCraft 1.8.7"
 
 var prompt = "Write a clever saying, quote or joke that could have come from the fortune-mod application on Linux. Only output the fortune, in plain text."
 
@@ -115,10 +115,14 @@ func formatNicely(s string) string {
 	if terminalWidth <= 0 {
 		return strings.TrimSpace(strings.TrimPrefix(s, "."))
 	}
-	maxWidth := int(float64(terminalWidth) * 0.90)
+	maxWidth := int(float64(terminalWidth) * 0.95)
+	marginRight := int(float64(terminalWidth) * 0.05)
 	lines, err := wordwrap.PoeticWrap(strings.ReplaceAll(s, "  ", " "), maxWidth, 0)
 	if err != nil || len(lines) == 0 {
 		return strings.TrimSpace(strings.TrimPrefix(s, "."))
+	}
+	if len(lines) == 2 && len(lines[1]) < marginRight {
+		lines[0] += " " + lines[1]
 	}
 	return strings.TrimSpace(strings.TrimPrefix(strings.Join(lines, "\n"), "."))
 }
